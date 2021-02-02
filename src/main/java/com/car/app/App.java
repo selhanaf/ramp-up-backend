@@ -28,6 +28,10 @@ public class App {
 	static EntityManager entityManager = entityManagerFactory.createEntityManager();
 	
 	
+	/**
+	 * method to create new record in database
+	 * @param entityManager
+	 */
 	public static void createCars(EntityManager entityManager) {
 		entityManager.getTransaction().begin();
 		for(int i = 0; i < 9; i++){
