@@ -28,8 +28,9 @@ public interface ICarService {
 	/**
 	 * @param car: object contains information of the car the we want to create
 	 * @return the saved car
+	 * @throws Exception 
 	 */
-	public Car createCar(Car car);
+	public Car createCar(Car car) throws Exception;
 	
 	
 	/**

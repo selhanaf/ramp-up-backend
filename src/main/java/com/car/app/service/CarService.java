@@ -37,17 +37,19 @@ public class CarService implements ICarService {
 		return car;
 	}
 
-	public Car createCar(Car car) {
-		entityManager.getTransaction().begin();
-		if(car.getId() == null) {
+	public Car createCar(Car car) throws Exception {
+		try {
+			entityManager.getTransaction().begin();
 			log.info("create new car");
 			entityManager.persist(car);
-		} else {
-			car = entityManager.merge(car);
+			entityManager.getTransaction().commit();
+			entityManager.clear();
+			return car;
+		} catch (Exception e) {
+			log.error("error occured", e);
+			throw new Exception("Error while creating a new car");
 		}
-		entityManager.getTransaction().commit();
-		entityManager.clear();
-		return car;
+		
 	}
 
 	public Car updateCar(Car car) {
