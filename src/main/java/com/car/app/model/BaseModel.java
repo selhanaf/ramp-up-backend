@@ -31,8 +31,8 @@ public abstract class BaseModel implements Serializable {
 	private static final long serialVersionUID = -1399495828692808773L;
 	
 	@Id
-	@GeneratedValue
 	@GenericGenerator(name = "UUID", strategy = "uuid2")
+	@GeneratedValue(generator = "UUID")
 	@Column(name = "id")
 	private String id;
 	

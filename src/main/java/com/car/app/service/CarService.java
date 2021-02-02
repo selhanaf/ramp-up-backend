@@ -75,4 +75,14 @@ public class CarService implements ICarService {
 		}
 	}
 	
+	public static void main(String[] args) throws Exception {
+		CarService service = new CarService();
+		Car car = new Car();
+		car.setBrand("updated");
+		car.setCountry("updated");
+		car.setRegistration(new Date());
+		Car cars = service.createCar(car);
+		log.info("cars length = {}", cars.getBrand());
+	}
+	
 }

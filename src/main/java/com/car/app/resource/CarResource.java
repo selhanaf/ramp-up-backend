@@ -12,11 +12,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.car.app.model.Car;
 import com.car.app.service.CarService;
 
 @Path("cars")
 public class CarResource {
+	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
 	private CarService carService = new CarService();
 	
@@ -33,6 +37,15 @@ public class CarResource {
 	public Response getCar(@PathParam("carId") String carId) {
 		Car car = carService.getCar(carId);
 		return Response.status(Status.OK).entity(car).build();
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createCar(Car car) throws Exception {
+		log.info("CREATE NEW CAR RESOURCE");
+		car = carService.createCar(car);
+		return Response.status(Status.CREATED).entity(car).build();
 	}
 	
 }
