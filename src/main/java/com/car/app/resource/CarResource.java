@@ -3,8 +3,10 @@ package com.car.app.resource;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -46,6 +48,23 @@ public class CarResource {
 		log.info("CREATE NEW CAR RESOURCE");
 		car = carService.createCar(car);
 		return Response.status(Status.CREATED).entity(car).build();
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateCar(Car car) throws Exception {
+		log.info("CREATE NEW CAR RESOURCE");
+		car = carService.updateCar(car);
+		return Response.status(Status.OK).entity(car).build();
+	}
+	
+	@DELETE
+	@Path("/{carId}")
+	public Response deleteCar(@PathParam("carId") String carId) {
+		boolean deleted = carService.deleteCar(carId);
+		Status status = deleted? Status.NO_CONTENT : Status.NOT_FOUND;
+		return Response.status(status).build();
 	}
 	
 }

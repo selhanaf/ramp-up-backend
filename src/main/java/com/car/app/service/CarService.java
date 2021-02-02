@@ -52,37 +52,36 @@ public class CarService implements ICarService {
 		
 	}
 
-	public Car updateCar(Car car) {
-		entityManager.getTransaction().begin();
-		car = entityManager.merge(car);
-		entityManager.getTransaction().commit();
-		entityManager.clear();
-		return car;
+	public Car updateCar(Car car) throws Exception {
+		try {
+			log.info("Update the car with the id = {}", car.getId());
+			entityManager.getTransaction().begin();
+			Car updatedCar = entityManager.merge(car);
+			entityManager.getTransaction().commit();
+			entityManager.clear();
+			return updatedCar;
+			
+		} catch (Exception e) {
+			log.error("error occured", e);
+			throw new Exception("Error while updating a car");
+		}
+		
 	}
 
 	public boolean deleteCar(String carId) {
 		log.info("remove car with id ={} ", carId);
+		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, carId);
 		if(car != null) {
 			entityManager.remove(car);
 			entityManager.getTransaction().commit();
 			entityManager.clear();
-			return false;
+			return true;
 		} else {
 			entityManager.getTransaction().commit();
 			entityManager.clear();
 			return false;
 		}
-	}
-	
-	public static void main(String[] args) throws Exception {
-		CarService service = new CarService();
-		Car car = new Car();
-		car.setBrand("updated");
-		car.setCountry("updated");
-		car.setRegistration(new Date());
-		Car cars = service.createCar(car);
-		log.info("cars length = {}", cars.getBrand());
 	}
 	
 }

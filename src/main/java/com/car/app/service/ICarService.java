@@ -36,8 +36,9 @@ public interface ICarService {
 	/**
 	 * @param car: contains the new info of an existing car
 	 * @return a car with new informations
+	 * @throws Exception 
 	 */
-	public Car updateCar(Car car);
+	public Car updateCar(Car car) throws Exception;
 	
 	/**
 	 * @param carId: the id of the card we want to delete

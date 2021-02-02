@@ -37,16 +37,17 @@ public abstract class BaseModel implements Serializable {
 	private String id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_date")
+	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_date")
+	@Column(name = "updated_date", nullable = false)
 	private Date updatedDate;
 	
 	@PrePersist
     protected void onCreate() {
-		this.updatedDate = this.createdDate = new Date();
+		this.updatedDate = new Date();
+		this.createdDate = new Date();
     }
 
     @PreUpdate
