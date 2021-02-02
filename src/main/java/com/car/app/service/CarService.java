@@ -60,6 +60,7 @@ public class CarService implements ICarService {
 
 	public boolean deleteCar(String carId) {
 		log.info("remove car with id ={} ", carId);
+		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, carId);
 		if(car != null) {
 			entityManager.remove(car);
