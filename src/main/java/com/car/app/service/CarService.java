@@ -73,15 +73,4 @@ public class CarService implements ICarService {
 		}
 	}
 	
-	public static void main(String[] args) {
-		CarService service = new CarService();
-		Car car = new Car();
-		car.setBrand("updated");
-		car.setCountry("updated");
-		car.setId("e8eac5a1-3870-4158-9281-007354be3332");
-		car.setRegistration(new Date());
-		Car cars = service.updateCar(car);
-		log.info("cars length = {}", cars.getBrand());
-	}
-
 }
