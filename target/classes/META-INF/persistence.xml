@@ -5,6 +5,7 @@
     <persistence-unit name="auto-car-unit" transaction-type="RESOURCE_LOCAL">
     
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+    	<class>com.car.app.model.Car</class>
     	<exclude-unlisted-classes>false</exclude-unlisted-classes>
     	<!-- enable cache 
     	DISABLE_SELECTIVE: To cache only the entities annotated with @Cacheable or @Cacheable(true)  -->
@@ -19,6 +20,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="create"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.hbm2ddl.import_files" value="sql/cars.sql"/>
 		</properties>   
            
     </persistence-unit>
