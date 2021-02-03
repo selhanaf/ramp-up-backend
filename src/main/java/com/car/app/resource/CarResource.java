@@ -21,29 +21,31 @@ import com.car.app.model.Car;
 import com.car.app.service.CarService;
 
 @Path("cars")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class CarResource {
 	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
 	private CarService carService = new CarService();
 	
 	@GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getCars() {
+		log.info("GET ALL CARS RESOURCE");
         List<Car> cars = carService.getCars();
+        log.info("CARS WERE GOTTEN SUCCESSFULLY FROM SERVICE");
 		return Response.status(Status.OK).entity(cars).build();
     }
 	
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{carId}")
 	public Response getCar(@PathParam("carId") String carId) {
+		log.info("GET CAR");
 		Car car = carService.getCar(carId);
+		log.info("CARS WERE GOTTEN SUCCESSFULLY FROM SERVICE");
 		return Response.status(Status.OK).entity(car).build();
 	}
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response createCar(Car car) throws Exception {
 		log.info("CREATE NEW CAR RESOURCE");
 		car = carService.createCar(car);
@@ -51,10 +53,8 @@ public class CarResource {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateCar(Car car) throws Exception {
-		log.info("CREATE NEW CAR RESOURCE");
+		log.info("UPDATE A CAR - RESOURCE");
 		car = carService.updateCar(car);
 		return Response.status(Status.OK).entity(car).build();
 	}
@@ -62,6 +62,7 @@ public class CarResource {
 	@DELETE
 	@Path("/{carId}")
 	public Response deleteCar(@PathParam("carId") String carId) {
+		log.info("REMOVE A CAR - RESOURCE");
 		boolean deleted = carService.deleteCar(carId);
 		Status status = deleted? Status.NO_CONTENT : Status.NOT_FOUND;
 		return Response.status(status).build();

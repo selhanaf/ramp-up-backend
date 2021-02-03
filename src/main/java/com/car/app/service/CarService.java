@@ -25,6 +25,7 @@ public class CarService implements ICarService {
 		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.clear();
+		log.info("car length = {}", resultList.size());
 		return resultList;
 	}
 
