@@ -66,12 +66,10 @@ public abstract class BaseModel implements Serializable {
 		this.id = id;
 	}
 
-	@ApiModelProperty(value = "Date of Car creation", name = "createdDate",  dataType = "date-time", example = "2021-02-01 15:49:23")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	@ApiModelProperty(value = "Date of Car update", name = "updatedDate",  dataType = "date-time", example = "2021-02-01 15:49:23")
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}

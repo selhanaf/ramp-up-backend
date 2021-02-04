@@ -11,9 +11,10 @@ import javax.persistence.TemporalType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("Car Model")
+
 @Entity
 @Table(name = "car")
+@ApiModel("Car Model")
 public class Car extends BaseModel {
 
 	@Column(name = "brand", nullable = false, unique=false, length=50)
