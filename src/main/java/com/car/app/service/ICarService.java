@@ -28,15 +28,17 @@ public interface ICarService {
 	/**
 	 * @param car: object contains information of the car the we want to create
 	 * @return the saved car
+	 * @throws Exception 
 	 */
-	public Car createCar(Car car);
+	public Car createCar(Car car) throws Exception;
 	
 	
 	/**
 	 * @param car: contains the new info of an existing car
 	 * @return a car with new informations
+	 * @throws Exception 
 	 */
-	public Car updateCar(Car car);
+	public Car updateCar(Car car) throws Exception;
 	
 	/**
 	 * @param carId: the id of the card we want to delete

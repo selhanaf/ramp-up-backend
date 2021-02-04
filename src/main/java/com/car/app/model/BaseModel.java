@@ -11,6 +11,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,22 +32,26 @@ public abstract class BaseModel implements Serializable {
 	private static final long serialVersionUID = -1399495828692808773L;
 	
 	@Id
-	@GeneratedValue(generator = "UUID")
 	@GenericGenerator(name = "UUID", strategy = "uuid2")
+	@GeneratedValue(generator = "UUID")
+	@NotNull
 	@Column(name = "id")
 	private String id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_date")
+	@NotNull
+	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_date")
+	@NotNull
+	@Column(name = "updated_date", nullable = false)
 	private Date updatedDate;
 	
 	@PrePersist
     protected void onCreate() {
-		this.updatedDate = this.createdDate = new Date();
+		this.updatedDate = new Date();
+		this.createdDate = new Date();
     }
 
     @PreUpdate
