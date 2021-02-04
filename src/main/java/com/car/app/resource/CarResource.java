@@ -33,41 +33,44 @@ public class CarResource implements ICarResource {
 	
 	@GET
     public Response getCars() {
-		log.info("GET ALL CARS RESOURCE");
+		log.info("ENETR : getCars");
         List<Car> cars = carService.getCars();
-        log.info("CARS WERE GOTTEN SUCCESSFULLY FROM SERVICE");
+        log.info("EXIT: getCars");
 		return Response.status(Status.OK).entity(cars).build();
     }
 	
 	@GET
 	@Path("/{carId}")
 	public Response getCar(@PathParam("carId") String carId) {
-		log.info("GET CAR");
+		log.info("ENETR : getCar");
 		Car car = carService.getCar(carId);
-		log.info("CARS WERE GOTTEN SUCCESSFULLY FROM SERVICE");
+		log.info("EXIT: getCar");
 		return Response.status(Status.OK).entity(car).build();
 	}
 	
 	@POST
 	public Response createCar(Car car) throws Exception {
-		log.info("CREATE NEW CAR RESOURCE");
+		log.info("ENETR : createCar");
 		car = carService.createCar(car);
+		log.info("EXIT : createCar");
 		return Response.status(Status.CREATED).entity(car).build();
 	}
 	
 	@PUT
 	public Response updateCar(Car car) throws Exception {
-		log.info("UPDATE A CAR - RESOURCE");
+		log.info("ENETR :");
 		car = carService.updateCar(car);
+		log.info("EXIT: ");
 		return Response.status(Status.OK).entity(car).build();
 	}
 	
 	@DELETE
 	@Path("/{carId}")
 	public Response deleteCar(@PathParam("carId") String carId) {
-		log.info("REMOVE A CAR - RESOURCE");
+		log.info("ENTER : deleteCar");
 		boolean deleted = carService.deleteCar(carId);
 		Status status = deleted? Status.NO_CONTENT : Status.NOT_FOUND;
+		log.info("EXIT: deleteCar");
 		return Response.status(status).build();
 	}
 	

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,13 +18,16 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("Car Model")
 public class Car extends BaseModel {
 
+	@NotNull
 	@Column(name = "brand", nullable = false, unique=false, length=50)
 	private String brand;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
     @Column(name = "registration", nullable = false)
     private Date registration;
 	
+	@NotNull
 	@Column(name = "country", nullable = false, unique=false, length=50)
 	private String country;
 

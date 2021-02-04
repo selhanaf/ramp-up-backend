@@ -20,31 +20,37 @@ public class CarService implements ICarService {
 	static EntityManager entityManager = entityManagerFactory.createEntityManager();
 	
 	public List<Car> getCars() {
+		log.info("ENTER : getCars");
 		log.info("Get all cars");
 		entityManager.getTransaction().begin();
 		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.clear();
 		log.info("car length = {}", resultList.size());
+		log.info("EXIT : getCars");
 		return resultList;
 	}
 
 	public Car getCar(String id) {
+		log.info("ENTER : getCar");
 		log.info("find car with id = {}", id);
 		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, id);
 		entityManager.getTransaction().commit();
 		entityManager.clear();
+		log.info("EXIT : getCar");
 		return car;
 	}
 
 	public Car createCar(Car car) throws Exception {
+		log.info("ENTER : createCar");
 		try {
 			entityManager.getTransaction().begin();
 			log.info("create new car");
 			entityManager.persist(car);
 			entityManager.getTransaction().commit();
 			entityManager.clear();
+			log.info("EXIT : createCar");
 			return car;
 		} catch (Exception e) {
 			log.error("error occured", e);
@@ -54,12 +60,14 @@ public class CarService implements ICarService {
 	}
 
 	public Car updateCar(Car car) throws Exception {
+		log.info("ENTER : updateCar");
 		try {
 			log.info("Update the car with the id = {}", car.getId());
 			entityManager.getTransaction().begin();
 			Car updatedCar = entityManager.merge(car);
 			entityManager.getTransaction().commit();
 			entityManager.clear();
+			log.info("EXIT : updateCar");
 			return updatedCar;
 			
 		} catch (Exception e) {
@@ -70,6 +78,7 @@ public class CarService implements ICarService {
 	}
 
 	public boolean deleteCar(String carId) {
+		log.info("ENTER : deleteCar");
 		log.info("remove car with id ={} ", carId);
 		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, carId);
@@ -77,6 +86,7 @@ public class CarService implements ICarService {
 			entityManager.remove(car);
 			entityManager.getTransaction().commit();
 			entityManager.clear();
+			log.info("EXIT : deleteCar");
 			return true;
 		} else {
 			entityManager.getTransaction().commit();
