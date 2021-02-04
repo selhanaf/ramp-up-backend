@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.sun.istack.NotNull;
+
 
 
 /**
@@ -33,14 +35,17 @@ public abstract class BaseModel implements Serializable {
 	@Id
 	@GenericGenerator(name = "UUID", strategy = "uuid2")
 	@GeneratedValue(generator = "UUID")
+	@NotNull
 	@Column(name = "id")
 	private String id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@NotNull
 	@Column(name = "updated_date", nullable = false)
 	private Date updatedDate;
 	
