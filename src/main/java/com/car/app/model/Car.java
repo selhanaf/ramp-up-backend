@@ -8,6 +8,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("Car Model")
 @Entity
 @Table(name = "car")
 public class Car extends BaseModel {
@@ -22,6 +26,7 @@ public class Car extends BaseModel {
 	@Column(name = "country", nullable = false, unique=false, length=50)
 	private String country;
 
+	@ApiModelProperty(value = "Brand Car", name = "brand",  dataType = "String", example = "BMW")
 	public String getBrand() {
 		return brand;
 	}
@@ -30,6 +35,7 @@ public class Car extends BaseModel {
 		this.brand = brand;
 	}
 
+	@ApiModelProperty(value = "Date of Car registration", name = "registration",  dataType = "date", example = "2020-10-10")
 	public Date getRegistration() {
 		return registration;
 	}
@@ -38,6 +44,7 @@ public class Car extends BaseModel {
 		this.registration = registration;
 	}
 
+	@ApiModelProperty(value = "Country of Car registration",name = "country",  dataType = "String", example = "Morocco")
 	public String getCountry() {
 		return country;
 	}

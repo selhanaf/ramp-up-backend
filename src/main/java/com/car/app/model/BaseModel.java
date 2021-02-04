@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import io.swagger.annotations.ApiModelProperty;
+
 
 
 /**
@@ -55,6 +57,7 @@ public abstract class BaseModel implements Serializable {
     	this.updatedDate = new Date();
     }
 
+    @ApiModelProperty(value = "Id of Car", name = "Id",  dataType = "String", example = "14a3036c-6c47-490e-87e0-eca768310abd")
 	public String getId() {
 		return id;
 	}
@@ -63,10 +66,12 @@ public abstract class BaseModel implements Serializable {
 		this.id = id;
 	}
 
+	@ApiModelProperty(value = "Date of Car creation", name = "createdDate",  dataType = "date-time", example = "2021-02-01 15:49:23")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
+	@ApiModelProperty(value = "Date of Car update", name = "updatedDate",  dataType = "date-time", example = "2021-02-01 15:49:23")
 	public Date getUpdatedDate() {
 		return updatedDate;
 	}

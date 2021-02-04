@@ -20,15 +20,20 @@ import org.slf4j.LoggerFactory;
 import com.car.app.model.Car;
 import com.car.app.service.CarService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @Path("cars")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Api(value = "Account", description = "APIs for working with users")
 public class CarResource {
 	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
 	private CarService carService = new CarService();
 	
 	@GET
+	@ApiOperation(value = "GET CARS")
     public Response getCars() {
 		log.info("GET ALL CARS RESOURCE");
         List<Car> cars = carService.getCars();
