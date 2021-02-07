@@ -8,14 +8,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 @Entity
 @Table(name = "car")
-@ApiModel("Car Model")
+@XmlRootElement(name = "Car Model")
 public class Car extends BaseModel {
 
 	@NotNull
@@ -31,7 +31,7 @@ public class Car extends BaseModel {
 	@Column(name = "country", nullable = false, unique=false, length=50)
 	private String country;
 
-	@ApiModelProperty(value = "Brand Car", name = "brand",  dataType = "String", example = "BMW")
+	@Schema(title = "Brand Car", name = "brand", example = "BMW")
 	public String getBrand() {
 		return brand;
 	}
@@ -40,7 +40,7 @@ public class Car extends BaseModel {
 		this.brand = brand;
 	}
 
-	@ApiModelProperty(value = "Date of Car registration", name = "registration",  dataType = "date", example = "2020-10-10")
+	@Schema(title = "Date of Car registration", name = "registration", example = "2020-10-10")
 	public Date getRegistration() {
 		return registration;
 	}
@@ -49,7 +49,7 @@ public class Car extends BaseModel {
 		this.registration = registration;
 	}
 
-	@ApiModelProperty(value = "Country of Car registration",name = "country",  dataType = "String", example = "Morocco")
+	@Schema(title = "Country of Car registration", name = "country", example = "Morocco")
 	public String getCountry() {
 		return country;
 	}

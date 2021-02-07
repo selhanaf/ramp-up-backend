@@ -20,12 +20,10 @@ import org.slf4j.LoggerFactory;
 import com.car.app.model.Car;
 import com.car.app.service.CarService;
 
-import io.swagger.annotations.Api;
 
-@Path("cars")
+@Path("/cars")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Api(value = "Cars APIs", description = "APIs for cars")
 public class CarResource implements ICarResource {
 	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
