@@ -60,8 +60,9 @@ public class CarDao {
 	 * create a new car
 	 * @param car
 	 * @return
+	 * @throws Exception 
 	 */
-	public Car createCar(Car car) {
+	public Car createCar(Car car) throws Exception {
 		log.info("ENTER : createCar");
 		try {
 			entityManager.getTransaction().begin();
@@ -73,7 +74,7 @@ public class CarDao {
 			return car;
 		} catch (Exception e) {
 			log.error("error occured", e);
-			return null;
+			throw new Exception("Error while creating a new car");
 		}
 		
 	}
