@@ -1,11 +1,10 @@
-package com.car.app.service;
+package com.car.app.controllers;
 
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.car.app.dao.CarDao;
 import com.car.app.model.Car;
 
 public class CarService implements ICarService {

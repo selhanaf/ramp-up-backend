@@ -1,4 +1,4 @@
-package com.car.app.tests;
+package com.car.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,19 +10,20 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import com.car.app.dao.CarDao;
+import com.car.app.controllers.CarDao;
+import com.car.app.controllers.CarService;
 import com.car.app.model.Car;
-import com.car.app.service.CarService;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
 	
-	@Spy
 	@InjectMocks
 	CarService carService;
 	
@@ -34,7 +35,6 @@ public class CarServiceTest {
 	
 	@Before
 	public void init() {
-		MockitoAnnotations.initMocks(this);
 		
 		cars = new ArrayList<Car>();
 		for(int i = 0; i < 5; i++) {

@@ -1,4 +1,4 @@
-package com.car.app.dao;
+package com.car.app.controllers;
 
 import java.util.List;
 
@@ -11,14 +11,24 @@ import org.slf4j.LoggerFactory;
 
 import com.car.app.model.Car;
 
+/**
+ * @author selhanaf
+ * 
+ * CarDao is a class used to make interaction with database
+ *
+ */
 public class CarDao {
 	
 	private static Logger log = LoggerFactory.getLogger(CarDao.class);
 	private static final String PERSISTENCE_UNIT_NAME = "auto-car-unit";
 	
-	static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	static EntityManager entityManager = entityManagerFactory.createEntityManager();
+	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+	EntityManager entityManager = entityManagerFactory.createEntityManager();
 	
+	/**
+	 * getting all cars
+	 * @return
+	 */
 	public List<Car> findAllCars() {
 		log.info("ENTER : findAllCars");
 		entityManager.getTransaction().begin();
@@ -30,6 +40,11 @@ public class CarDao {
 		return resultList;
 	}
 	
+	/**
+	 * find car by ID
+	 * @param id
+	 * @return
+	 */
 	public Car findCarById(String id) {
 		log.info("ENTER : findCarById");
 		log.info("find car with id = {}", id);
@@ -41,7 +56,12 @@ public class CarDao {
 		return car;
 	}
 
-	public Car createCar(Car car) throws Exception {
+	/**
+	 * create a new car
+	 * @param car
+	 * @return
+	 */
+	public Car createCar(Car car) {
 		log.info("ENTER : createCar");
 		try {
 			entityManager.getTransaction().begin();
@@ -53,11 +73,17 @@ public class CarDao {
 			return car;
 		} catch (Exception e) {
 			log.error("error occured", e);
-			throw new Exception("Error while creating a new car");
+			return null;
 		}
 		
 	}
 
+	/**
+	 * update existing car
+	 * @param car
+	 * @return
+	 * @throws Exception
+	 */
 	public Car updateCar(Car car) throws Exception {
 		log.info("ENTER : updateCar");
 		try {
@@ -76,6 +102,11 @@ public class CarDao {
 		
 	}
 
+	/**
+	 * delete a car with it's ID
+	 * @param carId
+	 * @return
+	 */
 	public boolean deleteCar(String carId) {
 		log.info("ENTER : deleteCar");
 		log.info("remove car with id ={} ", carId);
