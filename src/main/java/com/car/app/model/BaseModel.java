@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 
 /**
@@ -59,6 +61,7 @@ public abstract class BaseModel implements Serializable {
     	this.updatedDate = new Date();
     }
 
+    @Schema(required = true, example = "14a3036c-6c47-490e-87e0-eca768310abd")
 	public String getId() {
 		return id;
 	}

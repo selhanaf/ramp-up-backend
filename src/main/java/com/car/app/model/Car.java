@@ -8,9 +8,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 @Entity
 @Table(name = "car")
+@XmlRootElement(name = "Car Model")
 public class Car extends BaseModel {
 
 	@NotNull
@@ -26,6 +31,7 @@ public class Car extends BaseModel {
 	@Column(name = "country", nullable = false, unique=false, length=50)
 	private String country;
 
+	@Schema(title = "Brand Car", name = "brand", example = "BMW")
 	public String getBrand() {
 		return brand;
 	}
@@ -34,6 +40,7 @@ public class Car extends BaseModel {
 		this.brand = brand;
 	}
 
+	@Schema(title = "Date of Car registration", name = "registration", example = "2020-10-10")
 	public Date getRegistration() {
 		return registration;
 	}
@@ -42,6 +49,7 @@ public class Car extends BaseModel {
 		this.registration = registration;
 	}
 
+	@Schema(title = "Country of Car registration", name = "country", example = "Morocco")
 	public String getCountry() {
 		return country;
 	}

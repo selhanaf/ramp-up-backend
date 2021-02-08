@@ -20,10 +20,11 @@ import org.slf4j.LoggerFactory;
 import com.car.app.model.Car;
 import com.car.app.service.CarService;
 
-@Path("cars")
+
+@Path("/cars")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CarResource {
+public class CarResource implements ICarResource {
 	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
 	private CarService carService = new CarService();
