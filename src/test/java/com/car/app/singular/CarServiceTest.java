@@ -1,4 +1,4 @@
-package com.car.app;
+package com.car.app.singular;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,9 +17,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.car.app.controllers.CarDao;
-import com.car.app.controllers.CarService;
 import com.car.app.model.Car;
+import com.car.app.singular.CarDao;
+import com.car.app.singular.CarService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {

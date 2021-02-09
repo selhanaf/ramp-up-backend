@@ -1,10 +1,10 @@
-package com.car.app;
+package com.car.app.singular;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,11 +17,12 @@ import javax.persistence.Query;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.car.app.controllers.CarDao;
 import com.car.app.model.Car;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,6 +39,9 @@ public class CarDaoTest {
 	
 	@Mock
 	Query query;
+	
+	@Captor
+	ArgumentCaptor<String> argument;
 	
 	List<Car> cars;
 	
@@ -69,12 +73,22 @@ public class CarDaoTest {
 	 */
 	@Test
 	public void testFindAllCars() {
-		
+		String qs = "select c from Car c";
 		// mock the query:
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(query.getResultList()).thenReturn(cars);
 		
+		
 		List<Car> cars2 = carDao.findAllCars();
+		
+		// code for capture the executed query
+		verify(entityManager).createQuery(argument.capture());
+		String executedQuery = argument.getValue();
+		
+		// check if the executed query is the same as qs
+		assertEquals(qs, executedQuery);
+		
+		// check if the cars are well gotten
 		assertEquals(cars2.size(), cars.size());
 	}
 	

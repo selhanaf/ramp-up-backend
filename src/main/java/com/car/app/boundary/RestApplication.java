@@ -1,4 +1,4 @@
-package com.car.app.resource;
+package com.car.app.boundary;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

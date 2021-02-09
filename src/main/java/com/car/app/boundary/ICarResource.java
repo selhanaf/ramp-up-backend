@@ -1,4 +1,4 @@
-package com.car.app.resource;
+package com.car.app.boundary;
 
 import javax.ws.rs.core.Response;
 

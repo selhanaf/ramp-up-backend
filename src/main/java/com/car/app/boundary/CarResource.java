@@ -1,4 +1,4 @@
-package com.car.app.resource;
+package com.car.app.boundary;
 
 import java.util.List;
 
@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.car.app.controllers.CarService;
 import com.car.app.model.Car;
+import com.car.app.singular.CarService;
 
 
 @Path("/cars")
