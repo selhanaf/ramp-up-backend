@@ -23,7 +23,7 @@ public interface ICarResource {
 
 	/**
 	 * getting a car by it's ID
-	 * @param id
+	 * @param id      id of the car
 	 * @return Response
 	 */
 	@Operation( summary = "Fetch car by Id")
@@ -31,26 +31,26 @@ public interface ICarResource {
 	
 	/**
 	 * create a new car
-	 * @param car
-	 * @return
-	 * @throws Exception
+	 * @param car    the car to create
+	 * @return Response
+	 * @throws Exception    throws exception
 	 */
 	@Operation( summary = "Create new car")
 	public Response createCar(@Parameter(description  = "Car Object", required = true) Car car) throws Exception;
 	
 	/**
 	 * update existing car
-	 * @param car
-	 * @return
-	 * @throws Exception
+	 * @param car       car to update
+	 * @return Response
+	 * @throws Exception    throws exception
 	 */
 	@Operation( summary = "Update existing car")
 	public Response updateCar(@Parameter(description  = "Car Object", required = true) Car car) throws Exception;
 	
 	/**
 	 * delete an existing cars
-	 * @param id
-	 * @return
+	 * @param id    if of the car to delete
+	 * @return Response
 	 */
 	@Operation( summary = "Fetch car by Id")
 	public Response deleteCar(@Parameter(description  = "Car Id", required = true) String id);

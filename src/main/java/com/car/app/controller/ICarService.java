@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 
 import com.car.app.model.Car;
 
+
 /**
  * @author selhanaf
  * 
@@ -31,7 +32,7 @@ public interface ICarService {
 	/**
 	 * @param car: object contains information of the car the we want to create
 	 * @return the saved car
-	 * @throws Exception 
+	 * @throws Exception		Throws Exception
 	 */
 	public Car createCar(Car car) throws Exception;
 	
@@ -39,7 +40,7 @@ public interface ICarService {
 	/**
 	 * @param car: contains the new info of an existing car
 	 * @return a car with new informations
-	 * @throws Exception 
+	 * @throws Exception 		Throws Exception
 	 */
 	public Car updateCar(Car car) throws Exception;
 	

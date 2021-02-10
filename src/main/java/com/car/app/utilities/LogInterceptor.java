@@ -6,6 +6,14 @@ import javax.interceptor.InvocationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+
+/**
+ * @author selhanaf
+ * 
+ * A class used as annotation to make Entering/Leaving methods
+ *
+ */
 public class LogInterceptor {
 	private static Logger log = LoggerFactory.getLogger(LogInterceptor.class);
 

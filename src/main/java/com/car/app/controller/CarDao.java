@@ -37,7 +37,7 @@ public class CarDao {
 	
 	/**
 	 * getting all cars
-	 * @return
+	 * @return List of cars   list of cars
 	 */
 	public List<Car> findAllCars() {
 		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
@@ -47,8 +47,8 @@ public class CarDao {
 	
 	/**
 	 * find car by ID
-	 * @param id
-	 * @return
+	 * @param id          id of the car to get
+	 * @return Car
 	 */
 	public Car findCarById(String id) {
 		log.info("find car with id = {}", id);
@@ -58,9 +58,8 @@ public class CarDao {
 
 	/**
 	 * create a new car
-	 * @param car
-	 * @return
-	 * @throws Exception 
+	 * @param car            car to create
+	 * @return Car		return the created Car
 	 */
 	@Transactional(REQUIRED)
 	public Car createCar(Car car) {
@@ -71,9 +70,9 @@ public class CarDao {
 
 	/**
 	 * update existing car
-	 * @param car
-	 * @return
-	 * @throws Exception
+	 * @param car		Car to update
+	 * @return Car		updated car
+	 * @throws Exception		throws exception
 	 */
 	@Transactional(REQUIRED)
 	public Car updateCar(Car car) throws Exception {
@@ -87,8 +86,8 @@ public class CarDao {
 
 	/**
 	 * delete a car with it's ID
-	 * @param carId
-	 * @return
+	 * @param carId			the id of car to delete
+	 * @return boolean      true if deleted false if not
 	 */
 	@Transactional(REQUIRED)
 	public boolean deleteCar(String carId) {
