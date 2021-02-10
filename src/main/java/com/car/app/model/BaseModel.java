@@ -56,7 +56,11 @@ public abstract class BaseModel implements Serializable {
 		this.createdDate = new Date();
     }
 
-    @PreUpdate
+    public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	@PreUpdate
     protected void onUpdate() {
     	this.updatedDate = new Date();
     }

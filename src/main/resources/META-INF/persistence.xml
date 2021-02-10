@@ -4,21 +4,16 @@
 	version="2.0">
 
 	<persistence-unit name="auto-car-unit"
-		transaction-type="RESOURCE_LOCAL">
-
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>jdbc/car-app</jta-data-source>	
 		<class>com.car.app.model.Car</class>
+		
 		<properties>
-			<property name="javax.persistence.jdbc.driver"
-				value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/auto-car-db" />
-			<property name="javax.persistence.jdbc.user"
-				value="postgres" />
-			<property name="javax.persistence.jdbc.password"
-				value="aaaaAA11" />
-			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property
+                name="hibernate.transaction.jta.platform"
+                value="SunOne"
+            />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import org.junit.Before;
@@ -23,20 +23,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.car.app.controller.CarDao;
 import com.car.app.model.Car;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarDaoTest {
 
 	@InjectMocks
-	CarDao carDao;
+	CarDao carDao = new CarDao();
 	
 	@Mock
 	EntityManager entityManager;
-	
-	@Mock
-	EntityTransaction transaction;
 	
 	@Mock
 	Query query;
@@ -51,7 +47,6 @@ public class CarDaoTest {
 	 */
 	@Before
 	public void init() {
-		
 		cars = new ArrayList<Car>();
 		for(int i = 0; i < 5; i++) {
 			Car car = new Car();
@@ -62,11 +57,6 @@ public class CarDaoTest {
 			cars.add(car);
 		}
 		
-		// mock the entity manager
-		when(entityManager.getTransaction()).thenReturn(transaction);
-		doNothing().when(transaction).begin();
-		doNothing().when(transaction).commit();
-		doNothing().when(entityManager).clear();
 	}
 	
 	/**
@@ -128,6 +118,7 @@ public class CarDaoTest {
 	 */
 	@Test
 	public void testUpdateCar() throws Exception {
+		when(entityManager.find(any(), anyString())).thenReturn(cars.get(0));
 		when(entityManager.merge(any(Car.class))).thenReturn(cars.get(0));
 		
 		Car updateCar = carDao.updateCar(cars.get(0));

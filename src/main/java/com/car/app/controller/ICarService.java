@@ -2,6 +2,9 @@ package com.car.app.controller;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Remote;
+
 import com.car.app.model.Car;
 
 /**

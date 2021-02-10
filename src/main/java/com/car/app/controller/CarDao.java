@@ -2,14 +2,20 @@ package com.car.app.controller;
 
 import java.util.List;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.car.app.model.Car;
+
+import static javax.transaction.Transactional.TxType.REQUIRED;
 
 /**
  * @author selhanaf
@@ -17,13 +23,14 @@ import com.car.app.model.Car;
  * CarDao is a class used to make interaction with database
  *
  */
+@Stateful
 public class CarDao {
 	
 	private static Logger log = LoggerFactory.getLogger(CarDao.class);
 	private static final String PERSISTENCE_UNIT_NAME = "auto-car-unit";
 	
-	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	EntityManager entityManager = entityManagerFactory.createEntityManager();
+	@PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
+	EntityManager entityManager;
 	
 	/**
 	 * getting all cars
@@ -31,10 +38,7 @@ public class CarDao {
 	 */
 	public List<Car> findAllCars() {
 		log.info("ENTER : findAllCars");
-		entityManager.getTransaction().begin();
 		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
-		entityManager.getTransaction().commit();
-		entityManager.clear();
 		log.info("car length = {}", resultList.size());
 		log.info("EXIT : findAllCars");
 		return resultList;
@@ -48,10 +52,7 @@ public class CarDao {
 	public Car findCarById(String id) {
 		log.info("ENTER : findCarById");
 		log.info("find car with id = {}", id);
-		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, id);
-		entityManager.getTransaction().commit();
-		entityManager.clear();
 		log.info("EXIT : findCarById");
 		return car;
 	}
@@ -62,20 +63,12 @@ public class CarDao {
 	 * @return
 	 * @throws Exception 
 	 */
-	public Car createCar(Car car) throws Exception {
+	@Transactional(REQUIRED)
+	public Car createCar(Car car) {
 		log.info("ENTER : createCar");
-		try {
-			entityManager.getTransaction().begin();
-			log.info("create new car");
-			entityManager.persist(car);
-			entityManager.getTransaction().commit();
-			entityManager.clear();
-			log.info("EXIT : createCar");
-			return car;
-		} catch (Exception e) {
-			log.error("error occured", e);
-			throw new Exception("Error while creating a new car");
-		}
+		entityManager.persist(car);
+		log.info("EXIT : createCar");
+		return car;
 		
 	}
 
@@ -85,21 +78,15 @@ public class CarDao {
 	 * @return
 	 * @throws Exception
 	 */
+	@Transactional(REQUIRED)
 	public Car updateCar(Car car) throws Exception {
 		log.info("ENTER : updateCar");
-		try {
-			log.info("Update the car with the id = {}", car.getId());
-			entityManager.getTransaction().begin();
-			Car updatedCar = entityManager.merge(car);
-			entityManager.getTransaction().commit();
-			entityManager.clear();
-			log.info("EXIT : updateCar");
-			return updatedCar;
-			
-		} catch (Exception e) {
-			log.error("error occured", e);
-			throw new Exception("Error while updating a car");
-		}
+		log.info("Update the car with the id = {}", car.getId());
+		Car findCar = entityManager.find(Car.class, car.getId());
+		car.setCreatedDate(findCar.getCreatedDate());
+		Car updatedCar = entityManager.merge(car);
+		log.info("EXIT : updateCar");
+		return updatedCar;
 		
 	}
 
@@ -108,20 +95,17 @@ public class CarDao {
 	 * @param carId
 	 * @return
 	 */
+	@Transactional(REQUIRED)
 	public boolean deleteCar(String carId) {
 		log.info("ENTER : deleteCar");
 		log.info("remove car with id ={} ", carId);
-		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, carId);
 		if(car != null) {
 			entityManager.remove(car);
-			entityManager.getTransaction().commit();
-			entityManager.clear();
 			log.info("EXIT : deleteCar");
 			return true;
 		} else {
-			entityManager.getTransaction().commit();
-			entityManager.clear();
+			log.info("EXIT : deleteCar");
 			return false;
 		}
 	}
