@@ -2,6 +2,7 @@ package com.car.app.controller;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 
@@ -13,7 +14,9 @@ import com.car.app.model.Car;
 @Stateless
 public class CarService implements ICarService {
 	private static Logger log = LoggerFactory.getLogger(CarService.class);
-	private CarDao carDao = new CarDao();
+	
+	@EJB
+	private CarDao carDao;
 	
 	
 	public List<Car> getCars() {

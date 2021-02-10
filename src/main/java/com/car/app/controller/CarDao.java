@@ -2,6 +2,7 @@ package com.car.app.controller;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,6 +18,7 @@ import com.car.app.model.Car;
  * CarDao is a class used to make interaction with database
  *
  */
+@Stateless
 public class CarDao {
 	
 	private static Logger log = LoggerFactory.getLogger(CarDao.class);
