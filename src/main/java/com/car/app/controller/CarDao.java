@@ -2,10 +2,12 @@ package com.car.app.controller;
 
 import java.util.List;
 
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
@@ -21,14 +23,14 @@ import static javax.transaction.Transactional.TxType.REQUIRED;
  * CarDao is a class used to make interaction with database
  *
  */
-@Stateless
+@Stateful
 public class CarDao {
 	
 	private static Logger log = LoggerFactory.getLogger(CarDao.class);
 	private static final String PERSISTENCE_UNIT_NAME = "auto-car-unit";
 	
-	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	EntityManager entityManager = entityManagerFactory.createEntityManager();
+	@PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
+	EntityManager entityManager;
 	
 	/**
 	 * getting all cars
