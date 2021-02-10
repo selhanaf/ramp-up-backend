@@ -59,6 +59,7 @@ public abstract class BaseModel implements Serializable {
     @PreUpdate
     protected void onUpdate() {
     	this.updatedDate = new Date();
+    	this.createdDate = new Date();
     }
 
     @Schema(required = true, example = "14a3036c-6c47-490e-87e0-eca768310abd")
