@@ -1,6 +1,5 @@
-package com.car.app.service;
+package com.car.app.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,36 +11,57 @@ import org.slf4j.LoggerFactory;
 
 import com.car.app.model.Car;
 
-public class CarService implements ICarService {
-	private static Logger log = LoggerFactory.getLogger(CarService.class);
+/**
+ * @author selhanaf
+ * 
+ * CarDao is a class used to make interaction with database
+ *
+ */
+public class CarDao {
+	
+	private static Logger log = LoggerFactory.getLogger(CarDao.class);
 	private static final String PERSISTENCE_UNIT_NAME = "auto-car-unit";
 	
-	static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	static EntityManager entityManager = entityManagerFactory.createEntityManager();
+	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+	EntityManager entityManager = entityManagerFactory.createEntityManager();
 	
-	public List<Car> getCars() {
-		log.info("ENTER : getCars");
-		log.info("Get all cars");
+	/**
+	 * getting all cars
+	 * @return
+	 */
+	public List<Car> findAllCars() {
+		log.info("ENTER : findAllCars");
 		entityManager.getTransaction().begin();
 		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
 		entityManager.getTransaction().commit();
 		entityManager.clear();
 		log.info("car length = {}", resultList.size());
-		log.info("EXIT : getCars");
+		log.info("EXIT : findAllCars");
 		return resultList;
 	}
-
-	public Car getCar(String id) {
-		log.info("ENTER : getCar");
+	
+	/**
+	 * find car by ID
+	 * @param id
+	 * @return
+	 */
+	public Car findCarById(String id) {
+		log.info("ENTER : findCarById");
 		log.info("find car with id = {}", id);
 		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, id);
 		entityManager.getTransaction().commit();
 		entityManager.clear();
-		log.info("EXIT : getCar");
+		log.info("EXIT : findCarById");
 		return car;
 	}
 
+	/**
+	 * create a new car
+	 * @param car
+	 * @return
+	 * @throws Exception 
+	 */
 	public Car createCar(Car car) throws Exception {
 		log.info("ENTER : createCar");
 		try {
@@ -59,6 +79,12 @@ public class CarService implements ICarService {
 		
 	}
 
+	/**
+	 * update existing car
+	 * @param car
+	 * @return
+	 * @throws Exception
+	 */
 	public Car updateCar(Car car) throws Exception {
 		log.info("ENTER : updateCar");
 		try {
@@ -77,6 +103,11 @@ public class CarService implements ICarService {
 		
 	}
 
+	/**
+	 * delete a car with it's ID
+	 * @param carId
+	 * @return
+	 */
 	public boolean deleteCar(String carId) {
 		log.info("ENTER : deleteCar");
 		log.info("remove car with id ={} ", carId);
@@ -94,5 +125,4 @@ public class CarService implements ICarService {
 			return false;
 		}
 	}
-	
 }

@@ -1,22 +1,30 @@
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
-    
-    <persistence-unit name="auto-car-unit" transaction-type="RESOURCE_LOCAL">
-    
-    	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-    	<class>com.car.app.model.Car</class>
-    	<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />	        
-	        <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/auto-car-db" />
-	        <property name="javax.persistence.jdbc.user" value="postgres" />
-	        <property name="javax.persistence.jdbc.password" value="aaaaAA11" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-			<property name="hibernate.hbm2ddl.auto" value="create"/>
-			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.format_sql" value="true"/>
-			<property name="hibernate.hbm2ddl.import_files" value="sql/cars.sql"/>
-		</properties>   
-           
-    </persistence-unit>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="auto-car-unit"
+		transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.car.app.model.Car</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver"
+				value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://localhost:5432/auto-car-db" />
+			<property name="javax.persistence.jdbc.user"
+				value="postgres" />
+			<property name="javax.persistence.jdbc.password"
+				value="aaaaAA11" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.import_files"
+				value="sql/cars.sql" />
+		</properties>
+
+	</persistence-unit>
 </persistence>

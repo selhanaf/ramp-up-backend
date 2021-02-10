@@ -1,4 +1,4 @@
-package com.car.app.service;
+package com.car.app.controller;
 
 import java.util.List;
 
