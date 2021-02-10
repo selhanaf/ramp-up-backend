@@ -28,7 +28,7 @@ public class RestApplication extends Application {
 	        OpenAPI oas = new OpenAPI();
 	        oas.setServers(null);
 	        Server server = new Server();
-	        server.setUrl("http://localhost:8080/carapp");
+	        server.setUrl("/carapp");
 	        
 	        oas.setServers(Arrays.asList(server));
 	        SwaggerConfiguration oasConfig = new SwaggerConfiguration()

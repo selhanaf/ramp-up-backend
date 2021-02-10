@@ -2,6 +2,7 @@ package com.car.app.boundary;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,7 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.car.app.controller.CarService;
+import com.car.app.controller.ICarService;
 import com.car.app.model.Car;
 
 
@@ -27,7 +28,8 @@ import com.car.app.model.Car;
 public class CarResource implements ICarResource {
 	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
-	private CarService carService = new CarService();
+	@EJB
+	private ICarService carService;
 	
 	@GET
     public Response getCars() {
