@@ -3,6 +3,7 @@ package com.car.app.controller;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import com.car.app.model.Car;
 
@@ -12,7 +13,6 @@ import com.car.app.model.Car;
  * the interface contains all methods of Car service
  *
  */
-@Local
 public interface ICarService {
 
 	

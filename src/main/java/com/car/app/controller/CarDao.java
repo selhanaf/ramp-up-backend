@@ -50,10 +50,7 @@ public class CarDao {
 	public Car findCarById(String id) {
 		log.info("ENTER : findCarById");
 		log.info("find car with id = {}", id);
-		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, id);
-		entityManager.getTransaction().commit();
-		entityManager.clear();
 		log.info("EXIT : findCarById");
 		return car;
 	}
@@ -83,6 +80,8 @@ public class CarDao {
 	public Car updateCar(Car car) throws Exception {
 		log.info("ENTER : updateCar");
 		log.info("Update the car with the id = {}", car.getId());
+		Car findCar = entityManager.find(Car.class, car.getId());
+		car.setCreatedDate(findCar.getCreatedDate());
 		Car updatedCar = entityManager.merge(car);
 		log.info("EXIT : updateCar");
 		return updatedCar;
