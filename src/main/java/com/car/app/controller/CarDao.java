@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.car.app.model.Car;
+import com.car.app.utilities.LogInterceptor;
 
 import static javax.transaction.Transactional.TxType.REQUIRED;
 
@@ -24,6 +26,7 @@ import static javax.transaction.Transactional.TxType.REQUIRED;
  *
  */
 @Stateful
+@Interceptors(LogInterceptor.class)
 public class CarDao {
 	
 	private static Logger log = LoggerFactory.getLogger(CarDao.class);
@@ -37,10 +40,8 @@ public class CarDao {
 	 * @return
 	 */
 	public List<Car> findAllCars() {
-		log.info("ENTER : findAllCars");
 		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
 		log.info("car length = {}", resultList.size());
-		log.info("EXIT : findAllCars");
 		return resultList;
 	}
 	
@@ -50,10 +51,8 @@ public class CarDao {
 	 * @return
 	 */
 	public Car findCarById(String id) {
-		log.info("ENTER : findCarById");
 		log.info("find car with id = {}", id);
 		Car car = entityManager.find(Car.class, id);
-		log.info("EXIT : findCarById");
 		return car;
 	}
 
@@ -65,9 +64,7 @@ public class CarDao {
 	 */
 	@Transactional(REQUIRED)
 	public Car createCar(Car car) {
-		log.info("ENTER : createCar");
 		entityManager.persist(car);
-		log.info("EXIT : createCar");
 		return car;
 		
 	}
@@ -80,12 +77,10 @@ public class CarDao {
 	 */
 	@Transactional(REQUIRED)
 	public Car updateCar(Car car) throws Exception {
-		log.info("ENTER : updateCar");
 		log.info("Update the car with the id = {}", car.getId());
 		Car findCar = entityManager.find(Car.class, car.getId());
 		car.setCreatedDate(findCar.getCreatedDate());
 		Car updatedCar = entityManager.merge(car);
-		log.info("EXIT : updateCar");
 		return updatedCar;
 		
 	}
@@ -97,15 +92,12 @@ public class CarDao {
 	 */
 	@Transactional(REQUIRED)
 	public boolean deleteCar(String carId) {
-		log.info("ENTER : deleteCar");
 		log.info("remove car with id ={} ", carId);
 		Car car = entityManager.find(Car.class, carId);
 		if(car != null) {
 			entityManager.remove(car);
-			log.info("EXIT : deleteCar");
 			return true;
 		} else {
-			log.info("EXIT : deleteCar");
 			return false;
 		}
 	}
