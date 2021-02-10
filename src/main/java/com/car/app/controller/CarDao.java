@@ -99,17 +99,13 @@ public class CarDao {
 	public boolean deleteCar(String carId) {
 		log.info("ENTER : deleteCar");
 		log.info("remove car with id ={} ", carId);
-		entityManager.getTransaction().begin();
 		Car car = entityManager.find(Car.class, carId);
 		if(car != null) {
 			entityManager.remove(car);
-			entityManager.getTransaction().commit();
-			entityManager.clear();
 			log.info("EXIT : deleteCar");
 			return true;
 		} else {
-			entityManager.getTransaction().commit();
-			entityManager.clear();
+			log.info("EXIT : deleteCar");
 			return false;
 		}
 	}
