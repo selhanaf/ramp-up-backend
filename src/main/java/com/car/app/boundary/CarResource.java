@@ -3,6 +3,7 @@ package com.car.app.boundary;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,7 +29,7 @@ import com.car.app.model.Car;
 public class CarResource implements ICarResource {
 	private static Logger log = LoggerFactory.getLogger(CarResource.class);
 	
-	@EJB
+	@Inject
 	private ICarService carService;
 	
 	@GET

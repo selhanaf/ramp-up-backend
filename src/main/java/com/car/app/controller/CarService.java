@@ -2,9 +2,8 @@ package com.car.app.controller;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,7 @@ import com.car.app.model.Car;
 public class CarService implements ICarService {
 	private static Logger log = LoggerFactory.getLogger(CarService.class);
 	
-	@EJB
+	@Inject
 	private CarDao carDao;
 	
 	
