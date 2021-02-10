@@ -1,0 +1,213 @@
+{
+  "info": {
+    "_postman_id": "106f1f2b-8447-48b0-a57c-5dfbfbbeb755",
+    "name": "Car App Training",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET ALL CARS",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              " const response = pm.response.json();\r",
+              "pm.test(\"response is ok\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"check if response has a json content\", function(){\r",
+              "    pm.expect(response).to.be.an(\"array\");\r",
+              "})\r",
+              "\r",
+              "pm.test(\"check if the the size not null\", function(){\r",
+              "    pm.expect(response.length).to.be.above(1);\r",
+              "})"
+            ]
+          }
+        }
+      ],
+      "id": "81b651cb-b826-4970-b80d-fb240a72975d",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:8080/carapp/api/cars/"
+      },
+      "response": []
+    },
+    {
+      "name": "SAVE NEW CAR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const response = pm.response.json();\r",
+              "pm.test(\"response is Created\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"check if response has a json content\", function(){\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
+              "})\r",
+              "\r",
+              "pm.test(\"check if the the size not null\", function(){\r",
+              "    pm.expect(response.id).not.eql(null);\r",
+              "    pm.collectionVariables.set(\"CAR_ID\", response.id);\r",
+              "})"
+            ]
+          }
+        }
+      ],
+      "id": "1281dec5-2c70-4742-b06d-d8a67c47c0f4",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"New Car\",\r\n    \"country\": \"New Car\",\r\n    \"registration\": \"2021-02-01T14:27:53\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:8080/carapp/api/cars"
+      },
+      "response": []
+    },
+    {
+      "name": "GET CAR BY ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r",
+              "pm.test(\"response is Ok\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "pm.test(\"response not empty\", function(){\r",
+              "    pm.expect(pm.response.json()).not.eql(null)\r",
+              "})\r",
+              "pm.test(\"check if response has a json content\", function(){\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
+              "})\r",
+              "\r",
+              "pm.test(\"check if the the size not null\", function(){\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.id).not.eql(null);\r",
+              "})"
+            ]
+          }
+        }
+      ],
+      "id": "71d27ba0-2681-4271-b4d7-91e72d0b347f",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:8080/carapp/api/cars/{{CAR_ID}}"
+      },
+      "response": []
+    },
+    {
+      "name": "UPDATE CAR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const response = pm.response.json();\r",
+              "pm.test(\"response is Ok\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"check if response has a json content\", function(){\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
+              "})\r",
+              "\r",
+              "pm.test(\"check if the the size not null\", function(){\r",
+              "    pm.expect(response.id).not.eql(null);\r",
+              "})"
+            ]
+          }
+        }
+      ],
+      "id": "b0fcf734-0ac8-41ab-bf3f-70c14243bd55",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": \"{{CAR_ID}}\",\r\n    \"brand\": \"new Test\",\r\n    \"registration\": \"2021-02-01T14:27:53\",\r\n    \"country\": \"Las Test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:8080/carapp/api/cars"
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE CAR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"response is no content\", function () {\r",
+              "    pm.response.to.have.status(204);\r",
+              "});\r",
+              ""
+            ]
+          }
+        }
+      ],
+      "id": "258a25c4-8637-41cf-b5d6-9a0a861d4541",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "http://localhost:8080/carapp/api/cars/{{CAR_ID}}"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "484a7cd9-047d-4b2f-aadd-f1d1839bd60a",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "38f31710-389e-4529-aa8a-83bd9fe698d1",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "54219fe8-e713-4552-9f96-28e46ddc0c4a",
+      "key": "CAR_ID",
+      "value": "36adc4f4-63b5-4c5c-992b-3f2ff9cb263b"
+    }
+  ]
+}
