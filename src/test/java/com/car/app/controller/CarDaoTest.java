@@ -1,4 +1,4 @@
-package com.car.app.singular;
+package com.car.app.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,6 +23,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.car.app.controller.CarDao;
 import com.car.app.model.Car;
 
 @RunWith(MockitoJUnitRunner.class)

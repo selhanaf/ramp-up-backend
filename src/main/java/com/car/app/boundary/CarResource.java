@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.car.app.controller.CarService;
 import com.car.app.model.Car;
-import com.car.app.singular.CarService;
 
 
 @Path("/cars")
