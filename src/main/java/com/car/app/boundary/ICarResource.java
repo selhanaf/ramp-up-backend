@@ -19,7 +19,7 @@ public interface ICarResource {
 	 * @return Response
 	 */
 	@Operation( summary = "Fetch All cars")
-	public Response getCars(int size, int page, String sort, String order, String search, String searchBy);
+	public Response getCars(int size, int page, String sort, String order, String search);
 	
 	/**
 	 * getting a car by it's ID

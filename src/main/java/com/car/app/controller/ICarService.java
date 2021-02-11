@@ -17,7 +17,7 @@ public interface ICarService {
 	/**
 	 * @return list of cars
 	 */
-	public PaginationObject<CarDto> getCars(int size, int page, String sort, String order, String search, String searchBy);
+	public PaginationObject<CarDto> getCars(int size, int page, String sort, String order, String search);
 	
 	/**
 	 * @param id: if of the car

@@ -3,8 +3,10 @@ package com.car.app.boundary;
 
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.validation.constraints.Min;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -34,12 +36,11 @@ public class CarResource implements ICarResource {
 	
 	@GET
     public Response getCars(@QueryParam("size") int size,
-    		@QueryParam("page") int page,
-    		@QueryParam("sort") String sort,
-    		@QueryParam("order") String order,
-    		@QueryParam("search") String search,
-    		@QueryParam("searchBy") String searchBy) {
-		PaginationObject<CarDto> result = carService.getCars(size, page, sort, order, search, searchBy);
+    		@QueryParam("page") @Min(0) int page,
+    		@QueryParam("sort") @DefaultValue("asc") String sort,
+    		@QueryParam("order") @DefaultValue("brand") String order,
+    		@QueryParam("search") String search) {
+		PaginationObject<CarDto> result = carService.getCars(size, page, sort, order, search);
 		return Response.status(Status.OK).entity(result).build();
     }
 	

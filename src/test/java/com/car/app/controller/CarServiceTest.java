@@ -54,9 +54,9 @@ public class CarServiceTest {
 	
 	@Test
 	public void testGetAllCars() {
-		Mockito.when(carDao.findAllCars(0, 0, null, null, null, null)).thenReturn(paginationObject);
+		Mockito.when(carDao.findAllCars(0, 0, null, null, null)).thenReturn(paginationObject);
 		
-		PaginationObject<CarDto> cars2 = carService.getCars(0, 0, null, null, null, null);
+		PaginationObject<CarDto> cars2 = carService.getCars(0, 0, null, null, null);
 		assertEquals(cars2.data.size(), paginationObject.data.size());
 	}
 	

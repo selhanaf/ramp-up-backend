@@ -12,6 +12,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,61 +35,77 @@ public class CarDaoTest {
 
 	@InjectMocks
 	CarDao carDao = new CarDao();
-	
+
 	@Mock
 	EntityManager entityManager;
-	
+
 	@Mock
 	Query query;
-	
+
+	@Mock
+	TypedQuery<Car> createQuery;
+
+	@Mock
+	CriteriaQuery<Long> countQuery;
+
 	@Captor
 	ArgumentCaptor<String> argument;
+
+	@Mock
+	CriteriaBuilder cb;
 	
+	@Mock
+	CriteriaQuery<Car> q;
+	
+	@Mock
+	Root<Car> root;
+	
+	@Mock
+	TypedQuery<Long> typedCount;
+
 	List<Car> cars;
-	
+
 	/**
 	 * Configuration before any test method
 	 */
 	@Before
 	public void init() {
 		cars = new ArrayList<Car>();
-		for(int i = 0; i < 5; i++) {
+		for (int i = 0; i < 5; i++) {
 			Car car = new Car();
-			car.setBrand("Brand "+i);
-			car.setCountry("Country - "+i);
+			car.setBrand("Brand " + i);
+			car.setCountry("Country - " + i);
 			car.setRegistration(new Date());
-			car.setId("id-"+i);
+			car.setId("id-" + i);
 			cars.add(car);
 		}
-		
+
 	}
-	
+
 	/**
-	 *  Testing the method findAllCars
+	 * Testing the method findAllCars
+	 * 
 	 */
 	@Test
 	public void testFindAllCars() {
-		String qs = "SELECT c  FROM Car c order by id asc";
 		// mock the query:
-		when(entityManager.createQuery(anyString())).thenReturn(query);
-		when(query.getResultList()).thenReturn(cars);
-		
-		
-		PaginationObject<CarDto> cars2 = carDao.findAllCars(0, 0, null, null, null, null);
-		
-		// code for capture the executed query
-		verify(entityManager).createQuery(argument.capture());
-		String executedQuery = argument.getValue();
-		
-		// check if the executed query is the same as qs
-		assertEquals(qs, executedQuery);
-		
+		when(entityManager.getCriteriaBuilder()).thenReturn(cb);
+		when(cb.createQuery(Car.class)).thenReturn(q);
+		when(cb.createQuery(Long.class)).thenReturn(countQuery);
+		when(q.from(Car.class)).thenReturn(root);
+		when(entityManager.createQuery(countQuery)).thenReturn(typedCount);
+		when(entityManager.createQuery(q)).thenReturn(createQuery);
+		when(typedCount.getSingleResult()).thenReturn(10l);
+		when(createQuery.getResultList()).thenReturn(cars);
+
+		PaginationObject<CarDto> cars2 = carDao.findAllCars(0, 0, null, null, null);
+
 		// check if the cars are well gotten
 		assertEquals(cars2.data.size(), cars.size());
 	}
-	
+
 	/**
-	 *  Testing the method of findCarById
+	 * Testing the method of findCarById
 	 */
 	@Test
 	public void testFindCarById() {
@@ -93,38 +113,39 @@ public class CarDaoTest {
 		Car findCar = carDao.findCarById("any");
 		assertEquals(cars.get(0), findCar);
 	}
-	
+
 	/**
 	 * 
 	 * Testing createCar
-	 * @throws Exception 
-	 *  
+	 * 
+	 * @throws Exception
+	 * 
 	 */
 	@Test
 	public void testCreateCar() throws Exception {
 		doNothing().when(entityManager).persist(any(Car.class));
-		
+
 		Car createCar = carDao.createCar(cars.get(0));
-		
+
 		assertEquals(cars.get(0), createCar);
-		
+
 	}
-	
 
 	/**
 	 * 
 	 * Testing updateCar
-	 * @throws Exception 
-	 *  
+	 * 
+	 * @throws Exception
+	 * 
 	 */
 	@Test
 	public void testUpdateCar() throws Exception {
 		when(entityManager.find(any(), anyString())).thenReturn(cars.get(0));
 		when(entityManager.merge(any(Car.class))).thenReturn(cars.get(0));
-		
+
 		Car updateCar = carDao.updateCar(cars.get(0));
-		
+
 		assertEquals(cars.get(0), updateCar);
-		
+
 	}
 }

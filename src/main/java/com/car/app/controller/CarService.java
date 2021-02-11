@@ -21,9 +21,9 @@ public class CarService implements ICarService {
 	private CarDao carDao;
 	
 	@Override
-	public PaginationObject<CarDto> getCars(int size, int page, String sort, String order, String search, String searchBy) {
+	public PaginationObject<CarDto> getCars(int size, int page, String sort, String order, String search) {
 		log.info("Get all cars");
-		return carDao.findAllCars(size, page, sort, order, search, searchBy);
+		return carDao.findAllCars(size, page, sort, order, search);
 //		return resultList.stream().map(car -> CarDto.convertCarToDto(car)).collect(Collectors.toList());
 	}
 
