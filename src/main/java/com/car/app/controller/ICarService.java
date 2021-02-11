@@ -1,10 +1,5 @@
 package com.car.app.controller;
 
-import java.util.List;
-
-import javax.ejb.Local;
-import javax.ejb.Remote;
-
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.PaginationObject;

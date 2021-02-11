@@ -1,8 +1,6 @@
 package com.car.app.boundary;
 
-import java.util.List;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.ws.rs.Consumes;
@@ -18,8 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.car.app.controller.ICarService;
 import com.car.app.model.Car;
@@ -33,8 +29,6 @@ import com.car.app.utilities.PaginationObject;
 @Produces(MediaType.APPLICATION_JSON)
 @Interceptors(LogInterceptor.class)
 public class CarResource implements ICarResource {
-	private static Logger log = LoggerFactory.getLogger(CarResource.class);
-	
 	@Inject
 	private ICarService carService;
 	

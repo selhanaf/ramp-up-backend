@@ -14,11 +14,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.car.app.controller.CarDao;
-import com.car.app.controller.CarService;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.PaginationObject;
