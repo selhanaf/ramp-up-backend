@@ -23,6 +23,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.car.app.model.Car;
+import com.car.app.model.dto.CarDto;
+import com.car.app.utilities.PaginationObject;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarDaoTest {
@@ -63,13 +65,13 @@ public class CarDaoTest {
 	 */
 	@Test
 	public void testFindAllCars() {
-		String qs = "select c from Car c";
+		String qs = "SELECT c  FROM Car c order by id asc";
 		// mock the query:
 		when(entityManager.createQuery(anyString())).thenReturn(query);
 		when(query.getResultList()).thenReturn(cars);
 		
 		
-		List<Car> cars2 = carDao.findAllCars();
+		PaginationObject<CarDto> cars2 = carDao.findAllCars(0, 0, null, null, null, null);
 		
 		// code for capture the executed query
 		verify(entityManager).createQuery(argument.capture());
@@ -79,7 +81,7 @@ public class CarDaoTest {
 		assertEquals(qs, executedQuery);
 		
 		// check if the cars are well gotten
-		assertEquals(cars2.size(), cars.size());
+		assertEquals(cars2.data.size(), cars.size());
 	}
 	
 	/**

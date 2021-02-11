@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +21,7 @@ import com.car.app.controller.CarDao;
 import com.car.app.controller.CarService;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
+import com.car.app.utilities.PaginationObject;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
@@ -30,6 +31,8 @@ public class CarServiceTest {
 	
 	
 	List<Car> cars;
+	
+	PaginationObject<CarDto> paginationObject;
 	
 	@Mock
 	private CarDao carDao;
@@ -46,15 +49,18 @@ public class CarServiceTest {
 			car.setId("id-"+i);
 			cars.add(car);
 		}
+		
+		List<CarDto> dtos = cars.stream().map(car -> CarDto.convertCarToDto(car)).collect(Collectors.toList());
+		paginationObject = new PaginationObject<CarDto>(0, 0, 0, dtos, null, null);
 	}
 	
 	
 	@Test
 	public void testGetAllCars() {
-		Mockito.when(carDao.findAllCars()).thenReturn(cars);
+		Mockito.when(carDao.findAllCars(0, 0, null, null, null, null)).thenReturn(paginationObject);
 		
-		List<CarDto> cars2 = carService.getCars();
-		assertEquals(cars2.size(), cars.size());
+		PaginationObject<CarDto> cars2 = carService.getCars(0, 0, null, null, null, null);
+		assertEquals(cars2.data.size(), paginationObject.data.size());
 	}
 	
 	@Test

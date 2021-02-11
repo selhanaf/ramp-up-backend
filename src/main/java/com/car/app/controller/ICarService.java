@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
+import com.car.app.utilities.PaginationObject;
 
 
 /**
@@ -21,7 +22,7 @@ public interface ICarService {
 	/**
 	 * @return list of cars
 	 */
-	public List<CarDto> getCars();
+	public PaginationObject<CarDto> getCars(int size, int page, String sort, String order, String search, String searchBy);
 	
 	/**
 	 * @param id: if of the car

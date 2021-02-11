@@ -1,6 +1,7 @@
 package com.car.app.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
@@ -9,13 +10,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.car.app.model.Car;
+import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
+import com.car.app.utilities.PaginationObject;
 
 import static javax.transaction.Transactional.TxType.REQUIRED;
 
@@ -39,10 +46,23 @@ public class CarDao {
 	 * getting all cars
 	 * @return List of cars   list of cars
 	 */
-	public List<Car> findAllCars() {
-		List<Car> resultList = entityManager.createQuery("select c from Car c").getResultList();
+	public PaginationObject<CarDto> findAllCars(int size, int page, String sort, String order, String search, String searchBy) {
+		sort = sort != null && !sort.trim().isEmpty() ? sort : "asc";
+		order = order != null && !order.trim().isEmpty() ? order : "id";
+		size = size == 0 ? 10 : size;
+		String query = filteringAndSortingQuery(sort, order, search, searchBy);
+		Query dr = entityManager.createQuery(query);
+		
+		// get total elements
+		int totalElmenets = dr.getResultList().size();
+		dr.setFirstResult(page * size);
+		dr.setMaxResults(size);
+		List<Car> resultList = dr.getResultList();
+//		resultList.stream().map(car -> CarDto.convertCarToDto(car)).collect(Collectors.toList());
+		List<CarDto> data = resultList.stream().map(c-> CarDto.convertCarToDto(c)).collect(Collectors.toList());
+		PaginationObject<CarDto> pagintationObject = new PaginationObject<CarDto>(totalElmenets, size, page, data, sort, order);
 		log.info("car length = {}", resultList.size());
-		return resultList;
+		return pagintationObject;
 	}
 	
 	/**
@@ -99,5 +119,17 @@ public class CarDao {
 		} else {
 			return false;
 		}
+	}
+	
+	static public String filteringAndSortingQuery(String sort, String order, String search, String searchBy) {
+		
+		String query = "SELECT c  FROM Car c ";
+		if(search != null && searchBy != null) {
+			query = query + "WHERE "+ searchBy+ " like \'%"+ search +"%\' ";
+		}
+		
+		query+= "order by "+ order +" "+ sort;
+		
+		return query;
 	}
 }

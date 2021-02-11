@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -24,6 +25,7 @@ import com.car.app.controller.ICarService;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
+import com.car.app.utilities.PaginationObject;
 
 
 @Path("/cars")
@@ -37,9 +39,14 @@ public class CarResource implements ICarResource {
 	private ICarService carService;
 	
 	@GET
-    public Response getCars() {
-        List<CarDto> cars = carService.getCars();
-		return Response.status(Status.OK).entity(cars).build();
+    public Response getCars(@QueryParam("size") int size,
+    		@QueryParam("page") int page,
+    		@QueryParam("sort") String sort,
+    		@QueryParam("order") String order,
+    		@QueryParam("search") String search,
+    		@QueryParam("searchBy") String searchBy) {
+		PaginationObject<CarDto> result = carService.getCars(size, page, sort, order, search, searchBy);
+		return Response.status(Status.OK).entity(result).build();
     }
 	
 	@GET
