@@ -1,6 +1,7 @@
 package com.car.app.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.car.app.model.Car;
+import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
 
 @Stateless
@@ -21,24 +23,23 @@ public class CarService implements ICarService {
 	private CarDao carDao;
 	
 	
-	public List<Car> getCars() {
+	public List<CarDto> getCars() {
 		log.info("Get all cars");
 		List<Car> resultList = carDao.findAllCars();
-		log.info("car length = {}", resultList.size());
-		return resultList;
+		return resultList.stream().map(car -> CarDto.convertCarToDto(car)).collect(Collectors.toList());
 	}
 
-	public Car getCar(String id) {
+	public CarDto getCar(String id) {
 		log.info("find car with id = {}", id);
-		Car car = carDao.findCarById(id);
-		return car;
+		CarDto carDTO = CarDto.convertCarToDto(carDao.findCarById(id));
+		return carDTO;
 	}
 
-	public Car createCar(Car car) throws Exception {
+	public CarDto createCar(Car car) throws Exception {
 		try {
 			log.info("create new car");
-			car = carDao.createCar(car);
-			return car;
+			CarDto carDTO = CarDto.convertCarToDto(carDao.createCar(car));
+			return carDTO;
 		} catch (Exception e) {
 			log.error("error occured", e);
 			throw new Exception("Error while creating a new car");
@@ -46,10 +47,10 @@ public class CarService implements ICarService {
 		
 	}
 
-	public Car updateCar(Car car) throws Exception {
+	public CarDto updateCar(Car car) throws Exception {
 		try {
 			log.info("Update the car with the id = {}", car.getId());
-			Car updatedCar = carDao.updateCar(car);
+			CarDto updatedCar = CarDto.convertCarToDto(carDao.updateCar(car));
 			return updatedCar;
 			
 		} catch (Exception e) {
