@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import com.car.app.controller.ICarService;
 import com.car.app.model.Car;
+import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
 
 
@@ -37,27 +38,27 @@ public class CarResource implements ICarResource {
 	
 	@GET
     public Response getCars() {
-        List<Car> cars = carService.getCars();
+        List<CarDto> cars = carService.getCars();
 		return Response.status(Status.OK).entity(cars).build();
     }
 	
 	@GET
 	@Path("/{carId}")
 	public Response getCar(@PathParam("carId") String carId) {
-		Car car = carService.getCar(carId);
+		CarDto car = carService.getCar(carId);
 		return Response.status(Status.OK).entity(car).build();
 	}
 	
 	@POST
 	public Response createCar(Car car) throws Exception {
-		car = carService.createCar(car);
-		return Response.status(Status.CREATED).entity(car).build();
+		CarDto carDto = carService.createCar(car);
+		return Response.status(Status.CREATED).entity(carDto).build();
 	}
 	
 	@PUT
 	public Response updateCar(Car car) throws Exception {
-		car = carService.updateCar(car);
-		return Response.status(Status.OK).entity(car).build();
+		CarDto carDto = carService.updateCar(car);
+		return Response.status(Status.OK).entity(carDto).build();
 	}
 	
 	@DELETE

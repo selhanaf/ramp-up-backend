@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import javax.ejb.Remote;
 
 import com.car.app.model.Car;
+import com.car.app.model.dto.CarDto;
 
 
 /**
@@ -20,13 +21,13 @@ public interface ICarService {
 	/**
 	 * @return list of cars
 	 */
-	public List<Car> getCars();
+	public List<CarDto> getCars();
 	
 	/**
 	 * @param id: if of the car
 	 * @return a Car if the car exists, null if not
 	 */
-	public Car getCar(String id);
+	public CarDto getCar(String id);
 	
 	
 	/**
@@ -34,7 +35,7 @@ public interface ICarService {
 	 * @return the saved car
 	 * @throws Exception		Throws Exception
 	 */
-	public Car createCar(Car car) throws Exception;
+	public CarDto createCar(Car car) throws Exception;
 	
 	
 	/**
@@ -42,7 +43,7 @@ public interface ICarService {
 	 * @return a car with new informations
 	 * @throws Exception 		Throws Exception
 	 */
-	public Car updateCar(Car car) throws Exception;
+	public CarDto updateCar(Car car) throws Exception;
 	
 	/**
 	 * @param carId: the id of the card we want to delete

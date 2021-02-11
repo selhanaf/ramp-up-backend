@@ -20,6 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.car.app.controller.CarDao;
 import com.car.app.controller.CarService;
 import com.car.app.model.Car;
+import com.car.app.model.dto.CarDto;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceTest {
@@ -52,14 +53,14 @@ public class CarServiceTest {
 	public void testGetAllCars() {
 		Mockito.when(carDao.findAllCars()).thenReturn(cars);
 		
-		List<Car> cars2 = carService.getCars();
+		List<CarDto> cars2 = carService.getCars();
 		assertEquals(cars2.size(), cars.size());
 	}
 	
 	@Test
 	public void testGetCar() {
 		Mockito.when(carDao.findCarById(Mockito.anyString())).thenReturn(cars.get(0));
-		Car car = carService.getCar("id-0");
+		CarDto car = carService.getCar("id-0");
 		assertEquals(car.getId(), "id-0");
 	}
 	
@@ -70,8 +71,8 @@ public class CarServiceTest {
 		car.setCountry("new Car");
 		car.setRegistration(new Date());
 		Mockito.when(carDao.createCar(Mockito.any(Car.class))).thenReturn(car);
-		Car newCar = carService.createCar(car);
-		assertEquals(newCar, car);
+		CarDto newCar = carService.createCar(car);
+		assertEquals(newCar.getId(), car.getId());
 	}
 	
 	@Test
@@ -81,8 +82,8 @@ public class CarServiceTest {
 		car.setCountry("update");
 		car.setRegistration(new Date());
 		Mockito.when(carDao.createCar(Mockito.any(Car.class))).thenReturn(car);
-		Car updateCar = carService.createCar(cars.get(0));
-		assertEquals(updateCar, car);
+		CarDto updateCar = carService.createCar(cars.get(0));
+		assertEquals(updateCar.getId(), car.getId());
 	}
 	
 
