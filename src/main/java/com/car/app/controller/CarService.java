@@ -29,8 +29,11 @@ public class CarService implements ICarService {
 
 	public CarDto getCar(String id) {
 		log.info("find car with id = {}", id);
-		CarDto carDTO = CarDto.convertCarToDto(carDao.findCarById(id));
-		return carDTO;
+		Car car = carDao.findCarById(id);
+		if(car != null) {
+			return CarDto.convertCarToDto(car);
+		}
+		return null;
 	}
 
 	public CarDto createCar(Car car) throws Exception {

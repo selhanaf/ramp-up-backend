@@ -65,10 +65,8 @@ public class CarDao {
 		
 		// creating routing 
 		Root<Car> root = q.from(Car.class);
-		Root<Car> booksRootCount = countQuery.from(Car.class);
-		
         
-        countQuery.select(cb.count(booksRootCount));
+        countQuery.select(cb.count(countQuery.from(Car.class)));
         
 		if (search != null) {
 			Predicate brandPredict = cb.like(root.get("brand"), "%" + search + "%");
@@ -79,7 +77,7 @@ public class CarDao {
 		}
 
 		// take the order
-		q.orderBy(Arrays.asList(sort == "asc" ? cb.asc(root.get(order)) : cb.desc(root.get(order))));
+		q.orderBy(sort == "asc" ? cb.asc(root.get(order)) : cb.desc(root.get(order)));
 
 		TypedQuery<Car> createQuery = entityManager.createQuery(q);
 

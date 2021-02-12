@@ -36,7 +36,7 @@ public class CarResource implements ICarResource {
 	
 	@GET
     public Response getCars(@QueryParam("size") int size,
-    		@QueryParam("page") @Min(0) int page,
+    		@QueryParam("page")int page,
     		@QueryParam("sort") @DefaultValue("asc") String sort,
     		@QueryParam("order") @DefaultValue("brand") String order,
     		@QueryParam("search") String search) {
@@ -48,7 +48,9 @@ public class CarResource implements ICarResource {
 	@Path("/{carId}")
 	public Response getCar(@PathParam("carId") String carId) {
 		CarDto car = carService.getCar(carId);
-		return Response.status(Status.OK).entity(car).build();
+		Status status = car != null ? Status.OK : Status.NOT_FOUND;
+		
+		return Response.status(status).entity(car != null ? car : "Not Found").build();
 	}
 	
 	@POST
