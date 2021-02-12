@@ -19,11 +19,16 @@
               "});\r",
               "\r",
               "pm.test(\"check if response has a json content\", function(){\r",
-              "    pm.expect(response).to.be.an(\"array\");\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
               "})\r",
               "\r",
               "pm.test(\"check if the the size not null\", function(){\r",
-              "    pm.expect(response.length).to.be.above(1);\r",
+              "    pm.expect(response.size).to.be.above(1);\r",
+              "})\r",
+              "\r",
+              "pm.test(\"check if the sort and order are the same as our variables\", function(){\r",
+              "    pm.expect(response.order).to.be.eql(pm.collectionVariables.get(\"order\"));\r",
+              "     pm.expect(response.sort).to.be.eql(pm.collectionVariables.get(\"sort\"));\r",
               "})"
             ]
           }
@@ -33,7 +38,47 @@
       "request": {
         "method": "GET",
         "header": [],
-        "url": "http://localhost:8080/carapp/api/cars/"
+        "url": {
+          "raw": "http://localhost:8080/carapp/api/cars?size={{size}}&order={{order}}&sort={{sort}}&page={{page}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "carapp",
+            "api",
+            "cars"
+          ],
+          "query": [
+            {
+              "key": "size",
+              "value": "{{size}}"
+            },
+            {
+              "key": "search",
+              "value": "Brand0",
+              "disabled": true
+            },
+            {
+              "key": "searchBy",
+              "value": "brand",
+              "disabled": true
+            },
+            {
+              "key": "order",
+              "value": "{{order}}"
+            },
+            {
+              "key": "sort",
+              "value": "{{sort}}"
+            },
+            {
+              "key": "page",
+              "value": "{{page}}"
+            }
+          ]
+        }
       },
       "response": []
     },
@@ -185,7 +230,7 @@
     {
       "listen": "prerequest",
       "script": {
-        "id": "484a7cd9-047d-4b2f-aadd-f1d1839bd60a",
+        "id": "b08d8a34-eb22-40d4-8317-7664bd69fc6c",
         "type": "text/javascript",
         "exec": [
           ""
@@ -195,7 +240,7 @@
     {
       "listen": "test",
       "script": {
-        "id": "38f31710-389e-4529-aa8a-83bd9fe698d1",
+        "id": "4f0c7387-e408-4a11-a222-7be7ca9de440",
         "type": "text/javascript",
         "exec": [
           ""
@@ -205,9 +250,29 @@
   ],
   "variable": [
     {
-      "id": "54219fe8-e713-4552-9f96-28e46ddc0c4a",
+      "id": "55ea468d-1841-493e-94d9-3593043baa1a",
       "key": "CAR_ID",
-      "value": "36adc4f4-63b5-4c5c-992b-3f2ff9cb263b"
+      "value": "d17d4c8d-4cc6-48e4-b249-1806b890c9c8"
+    },
+    {
+      "id": "7035d14b-8b00-4e93-91f1-6208c994c65c",
+      "key": "order",
+      "value": "id"
+    },
+    {
+      "id": "5d52093b-09b3-4fdf-b63d-de5847a2626b",
+      "key": "size",
+      "value": "5"
+    },
+    {
+      "id": "1e7e0f1b-38ea-468d-adab-3baf6f8b61be",
+      "key": "page",
+      "value": "0"
+    },
+    {
+      "id": "f19ed631-6ee1-48af-a092-389c9c96a3d6",
+      "key": "sort",
+      "value": "asc"
     }
   ]
 }

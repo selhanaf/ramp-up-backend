@@ -1,8 +1,5 @@
 package com.car.app.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
@@ -13,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
+import com.car.app.utilities.PaginationObject;
 
 @Stateless
 @Interceptors(LogInterceptor.class)
@@ -22,17 +20,20 @@ public class CarService implements ICarService {
 	@Inject
 	private CarDao carDao;
 	
-	
-	public List<CarDto> getCars() {
+	@Override
+	public PaginationObject<CarDto> getCars(int size, int page, String sort, String order, String search) {
 		log.info("Get all cars");
-		List<Car> resultList = carDao.findAllCars();
-		return resultList.stream().map(car -> CarDto.convertCarToDto(car)).collect(Collectors.toList());
+		return carDao.findAllCars(size, page, sort, order, search);
+//		return resultList.stream().map(car -> CarDto.convertCarToDto(car)).collect(Collectors.toList());
 	}
 
 	public CarDto getCar(String id) {
 		log.info("find car with id = {}", id);
-		CarDto carDTO = CarDto.convertCarToDto(carDao.findCarById(id));
-		return carDTO;
+		Car car = carDao.findCarById(id);
+		if(car != null) {
+			return CarDto.convertCarToDto(car);
+		}
+		return null;
 	}
 
 	public CarDto createCar(Car car) throws Exception {
@@ -64,5 +65,5 @@ public class CarService implements ICarService {
 		log.info("remove car with id ={} ", carId);
 		return carDao.deleteCar(carId);
 	}
-	
+
 }
