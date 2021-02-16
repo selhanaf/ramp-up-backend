@@ -23,8 +23,8 @@ public class AuthenticationFilter  implements ContainerRequestFilter {
 	final static Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 	
 	
-	AuthAPI auth = new AuthAPI("dev-04zom-rc.us.auth0.com", "KntuHyTQxJILx19rQSlJSVuoBw2yoynV",
-			"oJNX9GE4XEoTdeDxtb-IDRc6NvAbM-2nUmvWg9yMWFyJILwMCbUxPzuZeb6Nex0Z");
+	AuthAPI auth = new AuthAPI("dev-04zom-rc.us.auth0.com", "ZBg0YCTgMaEBnCcunLo5zph8l78y0htE",
+			"MsWuLgKLiSZDoRN2bGBAC4rxIoPV3AFrA31HnFcpXIBN1B4uFlDhsrrfnzHvjsvs");
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -35,6 +35,8 @@ public class AuthenticationFilter  implements ContainerRequestFilter {
         if(token == null) {
         	throw new NotAuthorizedException("No authorization header");
         }
+        
+        token = token.replace("Bearer ", "");
         
         try {
         	auth.userInfo(token).execute();
