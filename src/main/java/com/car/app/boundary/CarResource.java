@@ -3,7 +3,6 @@ package com.car.app.boundary;
 
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import javax.validation.constraints.Min;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -17,7 +16,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 
 import com.car.app.controller.ICarService;
 import com.car.app.model.Car;
