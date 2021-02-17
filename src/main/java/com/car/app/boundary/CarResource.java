@@ -17,16 +17,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.auth0.exception.Auth0Exception;
 import com.car.app.controller.ICarService;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
-import com.car.app.security.SecuredApi;
 import com.car.app.utilities.LogInterceptor;
 import com.car.app.utilities.PaginationObject;
 
 
-@SecuredApi
 @Path("/cars")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)

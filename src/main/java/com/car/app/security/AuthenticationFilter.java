@@ -16,7 +16,6 @@ import com.auth0.client.auth.AuthAPI;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
 
-@SecuredApi
 @Provider
 @Priority(Priorities.AUTHORIZATION)
 public class AuthenticationFilter  implements ContainerRequestFilter {
