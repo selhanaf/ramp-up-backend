@@ -14,24 +14,24 @@ public class CarDto {
 
     private Date registration;
 	
-	private String CountryName;
+	private String country;
 	
-	private String brandName;
+	private String brand;
 	
-	public String getCountryName() {
-		return CountryName;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setCountryName(String countryName) {
-		CountryName = countryName;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public String getBrandName() {
-		return brandName;
+	public String getBrand() {
+		return brand;
 	}
 
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public String getId() {
@@ -72,8 +72,8 @@ public class CarDto {
 		carDto.setId(car.getId());
 		carDto.setCreatedDate(car.getCreatedDate());
 		carDto.setUpdatedDate(car.getUpdatedDate());
-		carDto.setBrandName(car.getBrand().getName());
-		carDto.setCountryName(car.getCountry().getName());
+		carDto.setBrand(car.getBrand().getName());
+		carDto.setCountry(car.getCountry().getName());
 		carDto.setRegistration(car.getRegistration());
 		return carDto;
 	}

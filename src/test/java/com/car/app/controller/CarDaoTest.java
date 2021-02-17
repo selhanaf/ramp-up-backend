@@ -67,22 +67,20 @@ public class CarDaoTest {
 
 	List<Car> cars;
 	
-	List<Brand> brands;
+	Country country;
 	
-	List<Country> countries;
+	Brand brand;
 
 	/**
 	 * Configuration before any test method
 	 */
 	@Before
 	public void init() {
-		
+		country = new Country();
+		country.setName("country ");
+		brand = new Brand();
 		cars = new ArrayList<Car>();
 		for (int i = 0; i < 5; i++) {
-			Country country = new Country();
-			country.setName("country "+i);
-			Brand brand = new Brand();
-			brand.setName("brand "+i);
 			Car car = new Car();
 			car.setBrand(brand);
 			car.setCountry(country);
