@@ -12,11 +12,27 @@ public class CarDto {
 	
 	private Date updatedDate;
 
-	private String brand;
-	
     private Date registration;
 	
-	private String country;
+	private String CountryName;
+	
+	private String brandName;
+	
+	public String getCountryName() {
+		return CountryName;
+	}
+
+	public void setCountryName(String countryName) {
+		CountryName = countryName;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
 
 	public String getId() {
 		return id;
@@ -42,14 +58,6 @@ public class CarDto {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getBrand() {
-		return brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
 	public Date getRegistration() {
 		return registration;
 	}
@@ -58,22 +66,14 @@ public class CarDto {
 		this.registration = registration;
 	}
 
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	
 	
 	static public CarDto convertCarToDto(Car car) {
 		CarDto carDto = new CarDto();
 		carDto.setId(car.getId());
 		carDto.setCreatedDate(car.getCreatedDate());
 		carDto.setUpdatedDate(car.getUpdatedDate());
-		carDto.setBrand(car.getBrand());
-		carDto.setCountry(car.getCountry());
+		carDto.setBrandName(car.getBrand().getName());
+		carDto.setCountryName(car.getCountry().getName());
 		carDto.setRegistration(car.getRegistration());
 		return carDto;
 	}

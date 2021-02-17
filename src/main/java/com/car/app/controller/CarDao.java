@@ -69,11 +69,9 @@ public class CarDao {
         countQuery.select(cb.count(countQuery.from(Car.class)));
         
 		if (search != null) {
-			Predicate brandPredict = cb.like(root.get("brand"), "%" + search + "%");
-			Predicate countryPredict = cb.like(root.get("country"), "%" + search + "%");
-			Predicate mergePredicates = cb.or(brandPredict, countryPredict);
-			q.where(mergePredicates).distinct(true);
-			countQuery.where(mergePredicates).distinct(true);
+			Predicate namePredict = cb.like(root.get("name"), "%" + search + "%");
+			q.where(namePredict).distinct(true);
+			countQuery.where(namePredict).distinct(true);
 		}
 
 		// take the order
