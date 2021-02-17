@@ -16,7 +16,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.car.app.model.Brand;
 import com.car.app.model.Car;
+import com.car.app.model.Country;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.PaginationObject;
 
@@ -34,14 +36,21 @@ public class CarServiceTest {
 	@Mock
 	private CarDao carDao;
 	
+	Country country;
+	
+	Brand brand;
+	
 	@Before
 	public void init() {
-		
 		cars = new ArrayList<Car>();
+		country = new Country();
+		country.setName("country ");
+		brand = new Brand();
+		brand.setName("brand ");
 		for(int i = 0; i < 5; i++) {
 			Car car = new Car();
-			car.setBrand("Brand "+i);
-			car.setCountry("Country - "+i);
+			car.setBrand(brand);
+			car.setCountry(country);
 			car.setRegistration(new Date());
 			car.setId("id-"+i);
 			cars.add(car);
@@ -70,8 +79,8 @@ public class CarServiceTest {
 	@Test
 	public void testAddCar() throws Exception {
 		Car car = new Car();
-		car.setBrand("new car");
-		car.setCountry("new Car");
+		car.setBrand(brand);
+		car.setCountry(country);
 		car.setRegistration(new Date());
 		Mockito.when(carDao.createCar(Mockito.any(Car.class))).thenReturn(car);
 		CarDto newCar = carService.createCar(car);
@@ -81,8 +90,8 @@ public class CarServiceTest {
 	@Test
 	public void testUpdateCar() throws Exception {
 		Car car = new Car();
-		car.setBrand("update car");
-		car.setCountry("update");
+		car.setBrand(brand);
+		car.setCountry(country);
 		car.setRegistration(new Date());
 		Mockito.when(carDao.createCar(Mockito.any(Car.class))).thenReturn(car);
 		CarDto updateCar = carService.createCar(cars.get(0));

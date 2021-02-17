@@ -7,7 +7,6 @@
 		transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>jdbc/car-app</jta-data-source>	
-		<class>com.car.app.model.Car</class>
 		
 		<properties>
 			<property

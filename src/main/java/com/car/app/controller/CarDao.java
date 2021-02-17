@@ -1,20 +1,15 @@
 package com.car.app.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateful;
 import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
@@ -69,11 +64,9 @@ public class CarDao {
         countQuery.select(cb.count(countQuery.from(Car.class)));
         
 		if (search != null) {
-			Predicate brandPredict = cb.like(root.get("brand"), "%" + search + "%");
-			Predicate countryPredict = cb.like(root.get("country"), "%" + search + "%");
-			Predicate mergePredicates = cb.or(brandPredict, countryPredict);
-			q.where(mergePredicates).distinct(true);
-			countQuery.where(mergePredicates).distinct(true);
+			Predicate namePredict = cb.like(root.get("name"), "%" + search + "%");
+			q.where(namePredict).distinct(true);
+			countQuery.where(namePredict).distinct(true);
 		}
 
 		// take the order

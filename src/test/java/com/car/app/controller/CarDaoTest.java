@@ -27,6 +27,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.car.app.model.Car;
+import com.car.app.model.Country;
+import com.car.app.model.Brand;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.PaginationObject;
 
@@ -64,17 +66,24 @@ public class CarDaoTest {
 	TypedQuery<Long> typedCount;
 
 	List<Car> cars;
+	
+	Country country;
+	
+	Brand brand;
 
 	/**
 	 * Configuration before any test method
 	 */
 	@Before
 	public void init() {
+		country = new Country();
+		country.setName("country ");
+		brand = new Brand();
 		cars = new ArrayList<Car>();
 		for (int i = 0; i < 5; i++) {
 			Car car = new Car();
-			car.setBrand("Brand " + i);
-			car.setCountry("Country - " + i);
+			car.setBrand(brand);
+			car.setCountry(country);
 			car.setRegistration(new Date());
 			car.setId("id-" + i);
 			cars.add(car);
