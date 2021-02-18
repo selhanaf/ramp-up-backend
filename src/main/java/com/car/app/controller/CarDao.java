@@ -141,7 +141,8 @@ public class CarDao {
 		log.info("remove car with id ={} ", carId);
 		Car car = entityManager.find(Car.class, carId);
 		if (car != null) {
-			entityManager.remove(car);
+			car.setToDelete(true);
+			entityManager.merge(car);
 			return true;
 		} else {
 			return false;

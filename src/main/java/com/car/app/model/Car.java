@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
@@ -37,6 +39,11 @@ public class Car extends BaseModel {
     @Column(name = "registration", nullable = false)
     private Date registration;
 	
+	@NotNull
+	@Column(name = "toDelete")
+	@ColumnDefault("false")
+	private boolean toDelete;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="brand_id", nullable=false)
 	private Brand brand;
@@ -45,7 +52,15 @@ public class Car extends BaseModel {
     @JoinColumn(name="country_id", nullable=false)
 	private Country country;
 	
-	
+
+	public boolean isToDelete() {
+		return toDelete;
+	}
+
+	public void setToDelete(boolean toDelete) {
+		this.toDelete = toDelete;
+	}
+
 	
 	public String getName() {
 		return name;
