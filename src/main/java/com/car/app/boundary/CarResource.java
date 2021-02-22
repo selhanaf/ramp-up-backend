@@ -1,8 +1,16 @@
 package com.car.app.boundary;
 
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -18,6 +26,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.car.app.controller.ICarService;
+import com.car.app.jms.JmsSender;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
@@ -31,6 +40,10 @@ import com.car.app.utilities.PaginationObject;
 public class CarResource implements ICarResource {
 	@Inject
 	private ICarService carService;
+	
+	@Inject
+	private JmsSender jmsSender;
+	
 	
 	@GET
     public Response getCars(@QueryParam("size") int size,
@@ -59,8 +72,8 @@ public class CarResource implements ICarResource {
 	
 	@PUT
 	public Response updateCar(Car car) throws Exception {
-		CarDto carDto = carService.updateCar(car);
-		return Response.status(Status.OK).entity(carDto).build();
+		jmsSender.updateCarJms(car);
+		return Response.status(Status.OK).entity(true).build();
 	}
 	
 	@DELETE
