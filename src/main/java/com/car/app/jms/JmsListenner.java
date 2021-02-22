@@ -28,9 +28,9 @@ import com.car.app.model.Car;
 				@ActivationConfigProperty(propertyName = "resourceAdapter", propertyValue = "activemq-rar-5.12.0")
 		}, 
 		mappedName = "dest")
-public class JmsDB implements MessageListener {
+public class JmsListenner implements MessageListener {
 	
-	private static Logger log = LoggerFactory.getLogger(JmsDB.class);
+	private static Logger log = LoggerFactory.getLogger(JmsListenner.class);
 
 	@Inject
 	private ICarService carService;
@@ -45,7 +45,7 @@ public class JmsDB implements MessageListener {
 			carService.updateCar(car);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
         
     }

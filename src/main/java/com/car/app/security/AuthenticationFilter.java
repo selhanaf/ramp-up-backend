@@ -37,11 +37,11 @@ public class AuthenticationFilter  implements ContainerRequestFilter {
         
         token = token.replace("Bearer ", "");
         
-//        try {
-//        	auth.userInfo(token).execute();
-//		} catch (Exception e) {
-//			throw new NotAuthorizedException("Token invalid");
-//		}
+        try {
+        	auth.userInfo(token).execute();
+		} catch (Exception e) {
+			throw new NotAuthorizedException("Token invalid");
+		}
 	}
 
 }

@@ -26,6 +26,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.car.app.controller.ICarService;
+import com.car.app.jms.JmsSender;
 import com.car.app.model.Car;
 import com.car.app.model.dto.CarDto;
 import com.car.app.utilities.LogInterceptor;
@@ -40,12 +41,8 @@ public class CarResource implements ICarResource {
 	@Inject
 	private ICarService carService;
 	
-	@Resource(mappedName = "jms/queue")
-	private Queue dest;
-	
-	@Resource(mappedName = "jms/connectionFactory")
-	private ConnectionFactory queue;
-	
+	@Inject
+	private JmsSender jmsSender;
 	
 	
 	@GET
@@ -75,16 +72,7 @@ public class CarResource implements ICarResource {
 	
 	@PUT
 	public Response updateCar(Car car) throws Exception {
-		try {
-//			CarDto carDto = carService.updateCar(car);
-			Connection connection = queue.createConnection();
-			Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
-			MessageProducer mp = session.createProducer(dest);
-			mp.send(session.createObjectMessage(car));
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		jmsSender.updateCarJms(car);
 		return Response.status(Status.OK).entity(true).build();
 	}
 	
