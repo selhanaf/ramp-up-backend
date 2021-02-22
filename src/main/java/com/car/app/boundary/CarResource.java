@@ -1,8 +1,16 @@
 package com.car.app.boundary;
 
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -32,6 +40,14 @@ public class CarResource implements ICarResource {
 	@Inject
 	private ICarService carService;
 	
+	@Resource(mappedName = "jms/queue")
+	private Queue dest;
+	
+	@Resource(mappedName = "jms/connectionFactory")
+	private ConnectionFactory queue;
+	
+	
+	
 	@GET
     public Response getCars(@QueryParam("size") int size,
     		@QueryParam("page")int page,
@@ -59,8 +75,17 @@ public class CarResource implements ICarResource {
 	
 	@PUT
 	public Response updateCar(Car car) throws Exception {
-		CarDto carDto = carService.updateCar(car);
-		return Response.status(Status.OK).entity(carDto).build();
+		try {
+//			CarDto carDto = carService.updateCar(car);
+			Connection connection = queue.createConnection();
+			Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
+			MessageProducer mp = session.createProducer(dest);
+			mp.send(session.createObjectMessage(car));
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Response.status(Status.OK).entity(true).build();
 	}
 	
 	@DELETE
