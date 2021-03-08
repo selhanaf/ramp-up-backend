@@ -1,7 +1,13 @@
+  
 pipeline {
   agent any
   
+  tools { 
+        maven 'mvn' 
+    }
+ 
   stages {
+    
     stage("build"){
       steps {
         echo "Start building the application...."
