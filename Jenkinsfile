@@ -4,8 +4,9 @@ pipeline {
   stages {
     stage("build"){
       steps {
-        echo "start building the application...."
-        
+        echo "Start building the application...."
+        sh "mvn clean install"
+        echo "End building the application"
       }
     }
   }
